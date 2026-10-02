@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e9e3da">
+  <title>Till</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231A1814'/%3E%3Cpath d='M8 20.5 13.2 15.2 17 18.2 24 10.5' fill='none' stroke='%23F3EFE7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,560&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <section id="login" class="screen" hidden>
+      <div class="card login-card">
+        <div class="lockup">
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="9" fill="#1A1814"></rect>
+            <path d="M8 20.5 13.2 15.2 17 18.2 24 10.5" fill="none" stroke="#F3EFE7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span class="brand">Till</span>
+        </div>
+        <h1>Is the business making money?</h1>
+        <p class="lede">Four numbers and a plain answer.</p>
+        <form id="login-form" autocomplete="off">
+          <label class="field">
+            <span>Username</span>
+            <input id="username" name="biz-user" type="text" value="Harbor &amp; Rye" readonly autocomplete="off" autocapitalize="off" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input id="access" name="access" type="password" value="********" readonly autocomplete="off">
+          </label>
+          <button id="login-submit" class="primary full" type="submit" autofocus>Sign in</button>
+        </form>
+        <p class="fine">Sign-in is filled in. A sample business is ready inside.</p>
+      </div>
+    </section>
+
+    <section id="dash" class="screen" hidden data-status="yellow">
+      <header class="dash-top">
+        <div class="lockup">
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="9" fill="#1A1814"></rect>
+            <path d="M8 20.5 13.2 15.2 17 18.2 24 10.5" fill="none" stroke="#F3EFE7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span class="brand">Till</span>
+        </div>
+        <button id="sign-out" class="text" type="button">Sign out</button>
+      </header>
+      <h1 id="biz-name">Harbor &amp; Rye</h1>
+      <p id="biz-meta" class="meta">Café · Sample numbers</p>
+
+      <article class="card hero">
+        <div class="chip" id="chip">
+          <span class="dot" aria-hidden="true"></span>
+          <span id="chip-label">Close</span>
+        </div>
+        <p id="status-line"></p>
+        <p id="hero-num" class="hero-num">0</p>
+        <p id="hero-cap" class="hero-cap">more sales to break even</p>
+        <div id="bar" class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span id="bar-fill"></span>
+        </div>
+        <p id="bar-text" class="bar-text"></p>
+      </article>
+
+      <article class="card stats">
+        <div class="stat">
+          <span>Profit / loss</span>
+          <b id="stat-net" class="val">—</b>
+        </div>
+        <div class="stat">
+          <span>Break-even point</span>
+          <b id="stat-even" class="val">—</b>
+        </div>
+        <div class="stat">
+          <span>Payback period</span>
+          <b id="stat-pay" class="val">—</b>
+        </div>
+      </article>
+
+      <article class="card note">
+        <div class="note-head">
+          <span class="eyebrow">Suggestion</span>
+          <button id="rewrite" class="icon" type="button" aria-label="Rewrite suggestion">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+              <path d="M14.5 9a5.5 5.5 0 1 1-1.5-3.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+              <path d="M14.6 2.8v3.2h-3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </div>
+        <p id="suggestion" class="suggestion"></p>
+        <p id="suggestion-note" class="fine"></p>
+        <button id="open-key" class="text" type="button">Use an OpenAI key</button>
+      </article>
+
+      <div class="actions">
+        <button id="edit" class="primary" type="button">Edit numbers</button>
+        <button id="restore" class="text center" type="button" hidden>Restore sample numbers</button>
+      </div>
+      <p class="fine center">Numbers stay on this device.</p>
+      <p id="live" class="sr" aria-live="polite"></p>
+    </section>
+
+    <section id="wizard" class="screen" hidden>
+      <header class="wizard-top">
+        <button id="wizard-close" class="text" type="button">Close</button>
+        <span class="brand">Till</span>
+        <span class="spacer"></span>
+      </header>
+      <form id="wizard-form" autocomplete="off" novalidate>
+        <div class="ticks" id="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+        <div class="step" data-step="0">
+          <p class="kicker">Step 1 of 4</p>
+          <h1 tabindex="-1">Startup money</h1>
+          <p class="help">What you paid to get started. Equipment, deposits, setup, or first stock.</p>
+          <label class="field">
+            <span>Business name</span>
+            <input id="biz-name-input" type="text" maxlength="40" autocomplete="off" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>Type of business</span>
+            <select id="kind">
+              <option value="cafe">Café</option>
+              <option value="shop">Online shop</option>
+              <option value="service">Service</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Amount put in</span>
+            <span class="money"><span aria-hidden="true">$</span><input id="investment" inputmode="decimal" autocomplete="off"></span>
+          </label>
+        </div>
+
+        <div class="step" data-step="1" hidden>
+          <p class="kicker">Step 2 of 4</p>
+          <h1 tabindex="-1">Monthly bills</h1>
+          <p class="help">What you pay even when a day is quiet. Leave a line blank if you don’t have it.</p>
+          <label class="field">
+            <span>Rent</span>
+            <span class="money"><span aria-hidden="true">$</span><input id="rent" inputmode="decimal" autocomplete="off"></span>
+          </label>
+          <label class="field">
+            <span>Staff pay</span>
+            <span class="money"><span aria-hidden="true">$</span><input id="wages" inputmode="decimal" autocomplete="off"></span>
+          </label>
+          <label class="field">
+            <span>Utilities</span>
+            <span class="money"><span aria-hidden="true">$</span><input id="utilities" inputmode="decimal" autocomplete="off"></span>
+          </label>
+          <label class="field">
+            <span>Other</span>
+            <span class="money"><span aria-hidden="true">$</span><input id="other" inputmode="decimal" autocomplete="off"></span>
+          </label>
+          <p id="live-bills" class="live-line"></p>
+        </div>
+
+        <div class="step" data-step="2" hidden>
+          <p class="kicker">Step 3 of 4</p>
+          <h1 tabindex="-1">A typical sale</h1>
+          <p class="help">Use your most common product, job, or order. An average is fine.</p>
+          <label class="field">
+            <span>What it costs you</span>
+            <span class="money"><span aria-hidden="true">$</span><input id="cost" inputmode="decimal" autocomplete="off"></span>
+          </label>
+          <label class="field">
+            <span>Price you charge</span>
+            <span class="money"><span aria-hidden="true">$</span><input id="price" inputmode="decimal" autocomplete="off"></span>
+          </label>
+          <p id="live-keep" class="live-line"></p>
+        </div>
+
+        <div class="step" data-step="3" hidden>
+          <p class="kicker">Step 4 of 4</p>
+          <h1 tabindex="-1">Sales this month</h1>
+          <p class="help">How many of those typical sales you made. A rough count is fine.</p>
+          <label class="field">
+            <span>Number of sales</span>
+            <input id="units" inputmode="decimal" autocomplete="off">
+          </label>
+          <p id="live-in" class="live-line"></p>
+        </div>
+
+        <p id="form-error" class="warn" hidden></p>
+        <div class="nav">
+          <button id="back" class="ghost" type="button" hidden>Back</button>
+          <button id="next" class="primary" type="submit">Continue</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div id="sheet" class="sheet-back" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <h2 id="sheet-title">OpenAI key</h2>
+      <p class="lede">Used to rewrite the suggestion from these numbers. The key stays in this browser. If the browser blocks the request, the built-in suggestion stays.</p>
+      <form id="key-form" autocomplete="off">
+        <label class="field">
+          <span>Key</span>
+          <input id="key-input" type="password" autocomplete="off" spellcheck="false" placeholder="sk-...">
+        </label>
+        <p id="key-msg" class="warn" hidden></p>
+        <button id="key-save" class="primary full" type="submit">Save and rewrite</button>
+      </form>
+      <div class="sheet-actions">
+        <button id="key-clear" class="text" type="button" hidden>Remove key</button>
+        <button id="sheet-close" class="text" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p class="card">Turn on JavaScript to use Till.</p>
+  </noscript>
+
+  <script src="js/demo-data.js"></script>
+  <script src="js/calc.js"></script>
+  <script src="js/insight.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
