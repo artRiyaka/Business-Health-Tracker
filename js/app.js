@@ -91,6 +91,7 @@
 
   function signOut() {
     sessionStorage.removeItem(AUTH_KEY);
+    document.title = "Till";
     show("login");
     $("login-submit").focus();
   }
@@ -415,7 +416,7 @@
         button.dataset.armed = "";
         button.textContent = "Restore sample numbers";
       }
-    }, 2600);
+    }, 8000);
   }
 
   function openSheet() {
@@ -476,7 +477,10 @@
       event.preventDefault();
       nextStep();
     });
-    $("wizard-form").addEventListener("input", updateLive);
+    $("wizard-form").addEventListener("input", function () {
+      updateLive();
+      showError("");
+    });
     $("back").addEventListener("click", prevStep);
     $("restore").addEventListener("click", armRestore);
     $("rewrite").addEventListener("click", function () {
